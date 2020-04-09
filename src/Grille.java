@@ -94,6 +94,19 @@ public class Grille {
     }
 
     boolean diagonnaleGauche (int joueur) {
+        for (int colonne = 0; colonne < 7; colonne++) {
+            int points = 0;
+            int i = 5;
+            for (int j = colonne; j >= 0; j--) {
+                if (this.lesPoints[i][j].getJoueur() == joueur)
+                    points++;
+
+                if (points >= 4)
+                    return true;
+                //System.out.println(i +" - "+j);
+                i--;
+            }
+        }
         return false;
     }
 
