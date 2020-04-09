@@ -1,10 +1,10 @@
 public class Grille {
-    private Points[][] lesPoints = new Points [7][6];
+    private Points[][] lesPoints = new Points [6][7];
 
     public Grille() {
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 6; j++) {
-                lesPoints[i][j]  = null;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                lesPoints[i][j]  = new Points(-1);
             }
         }
     }
@@ -16,9 +16,69 @@ public class Grille {
             return 0;
     }
 
-    public void addPoint(int i, int j, int joueur) {
-        this.lesPoints[i][j] = new Points(joueur);
+    public void addPoint2(int i, int j, int joueur) {
+        this.lesPoints[i][j].setJoueur(joueur);
     }
 
+    public boolean addPoint(int colonne, int joueur) {
+        for (int i = 5; i >= 0; i--) {
+            if (this.lesPoints[i][colonne].getJoueur() == -1) {
+                this.lesPoints[i][colonne] = new Points(joueur);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int verifierGagne() {
+        int joueur = 1;
+        if  (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
+            return 1;
+        else if  (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
+            return 2;
+        else
+            return 0;
+
+    }
+
+    boolean horiozontale (int joueur) {
+        int pions;
+        for (int i = 0; i < 6; i++) {
+            pions = 0;
+            for (int j = 0; j < 7; j++) {
+                if(this.lesPoints[i][j].getJoueur() == joueur)
+                    pions++;
+                else
+                    pions = 0;
+                if (pions >= 4)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    boolean verticale(int joueur) {
+        int pions;
+        for (int j = 0; j < 7; j++) {
+            pions = 0;
+             for (int i = 0; i < 6; i++) {
+                if(this.lesPoints[i][j].getJoueur() == joueur)
+                    pions++;
+                else
+                    pions = 0;
+                if (pions >= 4)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    boolean diagonnaleDroit(int joueur) {
+        return false;
+    }
+
+    boolean diagonnaleGauche (int joueur) {
+        return false;
+    }
 
 }

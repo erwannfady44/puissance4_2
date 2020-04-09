@@ -5,6 +5,10 @@ public class Points {
         this.joueur = joueur;
     }
 
+    public void setJoueur(int joueur) {
+        this.joueur = joueur;
+    }
+
     public int getJoueur() {
         return this.joueur;
     }
