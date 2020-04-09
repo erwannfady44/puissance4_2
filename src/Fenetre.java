@@ -22,7 +22,7 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(600, 400));
         this.setLocation(660, 240);
-        JButton[][] boutons = dessiner(plateau);
+        dessiner(plateau);
 
         haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de joueur 1</p></html>"));
 
@@ -34,17 +34,14 @@ public class Fenetre extends JFrame {
 
     }
 
-    JButton[][] dessiner(Grille plateau) {
+    void dessiner(Grille plateau) {
         JButton[][] boutons = new JButton[6][7];
 
         ActionListener ajoutPoint;
-        ajoutPoint = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!finPartie)
-                    jouer(e, boutons);
-                gagne();
-            }
+        ajoutPoint = e -> {
+            if (!finPartie)
+                jouer(e, boutons);
+            gagne();
         };
 
         for (int i = 0; i <6; i++) {
@@ -62,15 +59,11 @@ public class Fenetre extends JFrame {
                 grille.add(boutons[i][j]);
             }
         }
-
-
-
-        return boutons;
     }
 
 
 
-    void jouer(ActionEvent e, JButton boutons[][]) {
+    void jouer(ActionEvent e, JButton[][] boutons) {
         int colonne;
 
         colonne = getColonne(e.getSource(), boutons);
