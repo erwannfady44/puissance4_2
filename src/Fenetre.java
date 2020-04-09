@@ -53,6 +53,8 @@ public class Fenetre extends JFrame {
                     boutons[i][j].setBackground(Color.RED);
                 else if (plateau.getPoint(i, j) == 1)
                     boutons[i][j].setBackground(Color.YELLOW);
+                else if (plateau.getPoint(i, j) == 3)
+                    boutons[i][j].setBackground(Color.BLUE);
                 else
                     boutons[i][j].setBackground(Color.WHITE);
 

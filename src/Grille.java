@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Grille {
     private Points[][] lesPoints = new Points [6][7];
 
@@ -74,11 +77,37 @@ public class Grille {
     }
 
     boolean diagonnaleDroit(int joueur) {
+        for (int ligne = 0; ligne < 6; ligne++) {
+            int i = ligne;
+            int points = 0;
+
+            for (int j = 0; j <= ligne; j++) {
+                if (this.lesPoints[i][j].getJoueur() == joueur)
+                    points++;
+
+                if (points >= 4)
+                    return true;
+                i--;
+            }
+        }
         return false;
     }
 
     boolean diagonnaleGauche (int joueur) {
         return false;
+    }
+
+    void afficheTab() {
+        for (int i = 0; i <6; i++) {
+            for (int j = 0; j < 7; j++) {
+                System.out.print(this.lesPoints[i][j].getJoueur());
+            }
+            System.out.println();
+        }
+    }
+
+    void addPoint (int i, int j, int joueur){
+        this.lesPoints[i][j].setJoueur(3);
     }
 
 }
