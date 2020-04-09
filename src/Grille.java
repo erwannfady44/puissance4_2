@@ -45,7 +45,7 @@ public class Grille {
     }
 
     boolean horiozontale (int joueur) {
-        int pions;
+        /*int pions;
         for (int i = 0; i < 6; i++) {
             pions = 0;
             for (int j = 0; j < 7; j++) {
@@ -56,12 +56,12 @@ public class Grille {
                 if (pions >= 4)
                     return true;
             }
-        }
+        }*/
         return false;
     }
 
     boolean verticale(int joueur) {
-        int pions;
+        /*int pions;
         for (int j = 0; j < 7; j++) {
             pions = 0;
              for (int i = 0; i < 6; i++) {
@@ -72,12 +72,12 @@ public class Grille {
                 if (pions >= 4)
                     return true;
             }
-        }
+        }*/
         return false;
     }
 
     boolean diagonnaleDroit(int joueur) {
-        for (int ligne = 0; ligne < 6; ligne++) {
+        /*for (int ligne = 0; ligne < 6; ligne++) {
             int i = ligne;
             int points = 0;
 
@@ -89,34 +89,27 @@ public class Grille {
                     return true;
                 i--;
             }
-        }
+        }*/
         return false;
     }
 
     boolean diagonnaleGauche (int joueur) {
+        int i = 5;
         for (int colonne = 0; colonne < 7; colonne++) {
             int points = 0;
-            int i = 5;
-            for (int j = colonne; j >= 0; j--) {
-                if (this.lesPoints[i][j].getJoueur() == joueur)
-                    points++;
+            if (i != 0) {
+                i = 5;
+                for (int j = colonne; j >= 0; j--) {
+                    if (this.lesPoints[i][j].getJoueur() == joueur)
+                        points++;
 
-                if (points >= 4)
-                    return true;
-                //System.out.println(i +" - "+j);
-                i--;
+                    if (points >= 4)
+                        return true;
+                    i--;
+                }
             }
         }
         return false;
-    }
-
-    void afficheTab() {
-        for (int i = 0; i <6; i++) {
-            for (int j = 0; j < 7; j++) {
-                System.out.print(this.lesPoints[i][j].getJoueur());
-            }
-            System.out.println();
-        }
     }
 
     void addPoint (int i, int j, int joueur){
