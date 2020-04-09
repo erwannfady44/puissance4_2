@@ -45,7 +45,7 @@ public class Grille {
     }
 
     boolean horiozontale (int joueur) {
-        /*int pions;
+        int pions;
         for (int i = 0; i < 6; i++) {
             pions = 0;
             for (int j = 0; j < 7; j++) {
@@ -56,12 +56,12 @@ public class Grille {
                 if (pions >= 4)
                     return true;
             }
-        }*/
+        }
         return false;
     }
 
     boolean verticale(int joueur) {
-        /*int pions;
+        int pions;
         for (int j = 0; j < 7; j++) {
             pions = 0;
              for (int i = 0; i < 6; i++) {
@@ -72,12 +72,12 @@ public class Grille {
                 if (pions >= 4)
                     return true;
             }
-        }*/
+        }
         return false;
     }
 
     boolean diagonnaleDroit(int joueur) {
-        /*for (int ligne = 0; ligne < 6; ligne++) {
+        for (int ligne = 0; ligne < 6; ligne++) {
             int i = ligne;
             int points = 0;
 
@@ -89,7 +89,7 @@ public class Grille {
                     return true;
                 i--;
             }
-        }*/
+        }
         return false;
     }
 
