@@ -84,6 +84,8 @@ public class Grille {
             for (int j = 0; j <= ligne; j++) {
                 if (this.lesPoints[i][j].getJoueur() == joueur)
                     points++;
+                else
+                    points = 0;
 
                 if (points >= 4)
                     return true;
@@ -102,6 +104,8 @@ public class Grille {
                 for (int j = colonne; j >= 0; j--) {
                     if (this.lesPoints[i][j].getJoueur() == joueur)
                         points++;
+                    else
+                        points = 0;
 
                     if (points >= 4)
                         return true;
