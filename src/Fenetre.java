@@ -10,6 +10,8 @@ public class Fenetre extends JFrame{
         super("Puissance 4");
 
         JPanel p = new JPanel();
-        p.setSize(500,500);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(new Dimension(600, 400));
+        this.setLocation(660,240);
     }
 }
