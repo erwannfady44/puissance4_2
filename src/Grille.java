@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-
 public class Grille {
     private Points[][] lesPoints = new Points [6][7];
 
@@ -35,12 +32,15 @@ public class Grille {
 
     public int verifierGagne() {
         int joueur = 1;
+        int retour;
         if  (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
-            return 1;
+            retour = 1;
         else if  (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
-            return 2;
+            retour = 2;
         else
-            return 0;
+            retour = 0;
+        System.out.println("retour : "+retour);
+        return retour;
 
     }
 
@@ -53,10 +53,14 @@ public class Grille {
                     pions++;
                 else
                     pions = 0;
-                if (pions >= 4)
+                if (pions >= 4) {
+                    System.out.println("horizontal : oui");
                     return true;
+                }
+
             }
         }
+        System.out.println("horizontal : non");
         return false;
     }
 
@@ -69,10 +73,13 @@ public class Grille {
                     pions++;
                 else
                     pions = 0;
-                if (pions >= 4)
+                if (pions >= 4) {
+                    System.out.println("vertical : oui");
                     return true;
+                }
             }
         }
+        System.out.println("vertical : non");
         return false;
     }
 
@@ -87,11 +94,14 @@ public class Grille {
                 else
                     points = 0;
 
-                if (points >= 4)
+                if (points >= 4) {
+                    System.out.println("diago droit : non");
                     return true;
+                }
                 i--;
             }
         }
+        System.out.println("diago droit : non");
         return false;
     }
 
@@ -107,12 +117,15 @@ public class Grille {
                     else
                         points = 0;
 
-                    if (points >= 4)
+                    if (points >= 4) {
+                        System.out.println("diago gauche : non");
                         return true;
+                    }
                     i--;
                 }
             }
         }
+        System.out.println("diago gauche : non");
         return false;
     }
 

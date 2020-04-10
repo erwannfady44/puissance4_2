@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Fenetre extends JFrame {
-    JPanel jeu = new JPanel();
+    
+    JPanel fenetre = new JPanel();
     JPanel grille = new JPanel();
     Grille plateau = new Grille();
     JPanel haut = new JPanel();
@@ -15,7 +16,7 @@ public class Fenetre extends JFrame {
     public Fenetre() {
 
         super("Puissance 4");
-        jeu.setLayout(new BorderLayout());
+        fenetre.setLayout(new BorderLayout());
         grille.setLayout(new GridLayout(6, 7));
 
 
@@ -26,16 +27,16 @@ public class Fenetre extends JFrame {
 
         haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de joueur 1</p></html>"));
 
-        jeu.add(grille);
-        jeu.add(haut, BorderLayout.NORTH);
+        fenetre.add(grille);
+        fenetre.add(haut, BorderLayout.NORTH);
 
-        this.setContentPane(jeu);
+        this.setContentPane(fenetre);
 
 
     }
 
     void dessiner(Grille plateau) {
-        JButton[][] boutons = new JButton[6][7];
+       JButton[][] boutons = new JButton[6][7];
 
         ActionListener ajoutPoint;
         ajoutPoint = e -> {
@@ -46,31 +47,36 @@ public class Fenetre extends JFrame {
 
         for (int i = 0; i <6; i++) {
             for (int j = 0; j < 7; j++) {
-                boutons[i][j] = new JButton(" ");
-                boutons[i][j].addActionListener(ajoutPoint);
 
                 if (plateau.getPoint(i, j) == 2)
-                    boutons[i][j].setBackground(Color.RED);
+                    //boutons[i][j].setBackground(Color.RED);
+                    boutons[i][j] = new Bouton_rond(Color.RED);
                 else if (plateau.getPoint(i, j) == 1)
-                    boutons[i][j].setBackground(Color.YELLOW);
-                else if (plateau.getPoint(i, j) == 3)
-                    boutons[i][j].setBackground(Color.BLUE);
+                    //boutons[i][j].setBackground(Color.YELLOW);
+                    boutons[i][j] = new Bouton_rond(Color.YELLOW);
                 else
-                    boutons[i][j].setBackground(Color.WHITE);
+                    boutons[i][j] = new Bouton_rectangle();
+                boutons[i][j].addActionListener(ajoutPoint);
+
 
                 grille.add(boutons[i][j]);
             }
+            fenetre.updateUI();
         }
     }
 
 
 
     void jouer(ActionEvent e, JButton[][] boutons) {
+
         int colonne;
 
         colonne = getColonne(e.getSource(), boutons);
         if (colonne != -1) {
-            plateau.addPoint(colonne, coups % 2 + 1);
+            if (!plateau.addPoint(colonne, coups % 2 + 1)) {
+                coups--;
+                JOptionPane.showMessageDialog(null,"Impossible la colonne est déjà pleine");
+            }
             coups++;
         }
 
@@ -80,7 +86,7 @@ public class Fenetre extends JFrame {
         grille.removeAll();
         dessiner(plateau);
 
-        jeu.updateUI();
+        fenetre.updateUI();
     }
 
     void gagne() {
