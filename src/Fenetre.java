@@ -30,6 +30,8 @@ public class Fenetre extends JFrame {
         fenetre.add(grille);
         fenetre.add(haut, BorderLayout.NORTH);
 
+
+
         this.setContentPane(fenetre);
 
 
@@ -49,11 +51,11 @@ public class Fenetre extends JFrame {
             for (int j = 0; j < 7; j++) {
 
                 if (plateau.getPoint(i, j) == 2)
-                    //boutons[i][j].setBackground(Color.RED);
                     boutons[i][j] = new Bouton_rond(Color.RED);
                 else if (plateau.getPoint(i, j) == 1)
-                    //boutons[i][j].setBackground(Color.YELLOW);
                     boutons[i][j] = new Bouton_rond(Color.YELLOW);
+                else if (plateau.getPoint(i, j) == 3)
+                    boutons[i][j] = new Bouton_rond(Color.GREEN);
                 else
                     boutons[i][j] = new Bouton_rectangle();
                 boutons[i][j].addActionListener(ajoutPoint);
@@ -61,6 +63,9 @@ public class Fenetre extends JFrame {
 
                 grille.add(boutons[i][j]);
             }
+
+
+            fenetre.updateUI();
             fenetre.updateUI();
         }
     }
@@ -82,7 +87,7 @@ public class Fenetre extends JFrame {
 
         haut.removeAll();
         int joueur = coups % 2 + 1;
-        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de joueur " + joueur+ "</p></html>"));
+        haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de joueur " + joueur+ "</p></html>"));
         grille.removeAll();
         dessiner(plateau);
 

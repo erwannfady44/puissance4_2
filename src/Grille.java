@@ -16,31 +16,30 @@ public class Grille {
             return 0;
     }
 
-    public void addPoint2(int i, int j, int joueur) {
-        this.lesPoints[i][j].setJoueur(joueur);
-    }
-
     public boolean addPoint(int colonne, int joueur) {
         for (int i = 5; i >= 0; i--) {
             if (this.lesPoints[i][colonne].getJoueur() == -1) {
-                this.lesPoints[i][colonne] = new Points(joueur);
+                this.lesPoints[i][colonne].setJoueur(joueur);
                 return true;
             }
         }
         return false;
     }
 
+    public void addPoint2(int c, int l, int joueur) {
+        this.lesPoints[c][l].setJoueur(joueur);
+    }
+
     public int verifierGagne() {
-        int joueur = 1;
-        int retour;
-        if  (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
-            retour = 1;
-        else if  (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
-            retour = 2;
+        int joueur;
+        if (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
+            joueur = 1;
+        else if (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
+            joueur = 2;
         else
-            retour = 0;
-        System.out.println("retour : "+retour);
-        return retour;
+            joueur = 0;
+        System.out.println("gagnant : " + joueur);
+        return joueur;
 
     }
 
@@ -84,9 +83,9 @@ public class Grille {
     }
 
     boolean diagonnaleDroit(int joueur) {
+        int points = 0;
         for (int ligne = 0; ligne < 6; ligne++) {
             int i = ligne;
-            int points = 0;
 
             for (int j = 0; j <= ligne; j++) {
                 if (this.lesPoints[i][j].getJoueur() == joueur)
@@ -95,23 +94,49 @@ public class Grille {
                     points = 0;
 
                 if (points >= 4) {
-                    System.out.println("diago droit : non");
+                    System.out.println("diago droit : oui");
                     return true;
                 }
                 i--;
             }
         }
+
+        points = 0;
+
+        for (int colonne = 0; colonne < 4; colonne++) {
+            int j = colonne;
+            int i = 5;
+            while (i >= 0 && j < 7) {
+                if (this.lesPoints[i][j].getJoueur() == joueur) {
+                    points++;
+                }
+                else {
+                    points = 0;
+                }
+
+                if (points >= 4) {
+                    System.out.println("diago droit : oui");
+                    return true;
+                }
+
+                j++;
+                i--;
+            }
+        }
+
         System.out.println("diago droit : non");
         return false;
     }
 
     boolean diagonnaleGauche (int joueur) {
         int i = 5;
+        int points;
         for (int colonne = 0; colonne < 7; colonne++) {
-            int points = 0;
             if (i != 0) {
                 i = 5;
+                points = 0;
                 for (int j = colonne; j >= 0; j--) {
+                    System.out.println(i +" - "+j);
                     if (this.lesPoints[i][j].getJoueur() == joueur)
                         points++;
                     else
@@ -125,12 +150,27 @@ public class Grille {
                 }
             }
         }
+
+        for (int colonne = 0; colonne < 4; colonne++) {
+            i = 0;
+            int j = colonne;
+            points = 0;
+            while (i < 6 && j < 7) {
+                if (this.lesPoints[i][j].getJoueur() == joueur)
+                    points++;
+                else
+                    points = 0;
+
+                if (points >= 4) {
+                    System.out.println("diago gauche : non");
+                    return true;
+                }
+                System.out.println(i +" - "+ j);
+                i++;
+                j++;
+            }
+        }
         System.out.println("diago gauche : non");
         return false;
     }
-
-    void addPoint (int i, int j, int joueur){
-        this.lesPoints[i][j].setJoueur(3);
-    }
-
 }
