@@ -33,11 +33,11 @@ public class Grille {
     public int verifierGagne() {
         int joueur;
         if (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
-            joueur = 1;
-        else if (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
-            joueur = 2;
-        else
             joueur = 0;
+        else if (horiozontale(2) || verticale(2) || diagonnaleDroit(2) || diagonnaleGauche(2))
+            joueur = 1;
+        else
+            joueur = -1;
         System.out.println("gagnant : " + joueur);
         return joueur;
 
