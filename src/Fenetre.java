@@ -7,11 +7,12 @@ public class Fenetre extends JFrame {
 
     private JPanel fenetre = new JPanel();
     private JPanel grille = new JPanel();
-    private Grille plateau = new Grille();
+    protected Grille plateau = new Grille();
     private JPanel haut = new JPanel();
+    private JButton[][] boutons = new JButton[6][7];
     boolean finPartie = false;
 
-    private String[] pseudo;
+    private Joueur[] joueurs;
 
     int coups = 0;
 
@@ -19,7 +20,7 @@ public class Fenetre extends JFrame {
         super("Puissance 4");
 
 
-        pseudo = new String[]{joueur1.getPseudo(), joueur2.getPseudo()};
+        joueurs = new Joueur[]{joueur1, joueur2};
 
         fenetre.setLayout(new BorderLayout());
         grille.setLayout(new GridLayout(6, 7));
@@ -28,24 +29,24 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(600, 400));
         this.setLocation(660, 240);
-        dessiner(plateau);
 
         haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueur1.getPseudo() + "</p></html>"));
 
         fenetre.add(grille);
         fenetre.add(haut, BorderLayout.NORTH);
-
+        dessiner();
         this.setContentPane(fenetre);
     }
 
-    private void dessiner(Grille plateau) {
-       JButton[][] boutons = new JButton[6][7];
+    public void dessiner() {
+
+       grille.removeAll();
 
         ActionListener ajoutPoint;
         ajoutPoint = e -> {
             if (!finPartie)
                 jouer(e, boutons);
-            gagne(this.pseudo);
+            finPartie = gagne();
         };
 
         for (int i = 0; i <6; i++) {
@@ -61,12 +62,11 @@ public class Fenetre extends JFrame {
                     boutons[i][j] = new Bouton_rectangle();
                 boutons[i][j].addActionListener(ajoutPoint);
 
-
                 grille.add(boutons[i][j]);
             }
 
-            fenetre.updateUI();
         }
+        fenetre.updateUI();
     }
 
     private void jouer(ActionEvent e, JButton[][] boutons) {
@@ -85,20 +85,22 @@ public class Fenetre extends JFrame {
 
         haut.removeAll();
 
-        haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + pseudo[(coups) % 2] + "</p></html>"));
+        haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[(coups) % 2].getPseudo() + "</p></html>"));
         grille.removeAll();
-        dessiner(plateau);
+        dessiner();
 
         fenetre.updateUI();
     }
 
-    private void gagne(String[] pseudo) {
+    private boolean gagne() {
         int joueurGagne = plateau.verifierGagne();
         if (joueurGagne != -1) {
-            JOptionPane.showMessageDialog(null, this.pseudo[joueurGagne] + " gagne");
-            finPartie = true;
+            JOptionPane.showMessageDialog(null, this.joueurs[joueurGagne].getPseudo() + " gagne");
+            return true;
         }
+        return false;
     }
+
 
     private int getColonne(Object bt, JButton[][] boutons) {
         for (int i = 0; i < 6; i++) {
@@ -109,9 +111,5 @@ public class Fenetre extends JFrame {
             }
         }
         return -1;
-    }
-
-    public boolean finpartie() {
-        return finPartie;
     }
 }

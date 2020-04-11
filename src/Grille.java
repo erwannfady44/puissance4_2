@@ -136,7 +136,6 @@ public class Grille {
                 i = 5;
                 points = 0;
                 for (int j = colonne; j >= 0; j--) {
-                    System.out.println(i +" - "+j);
                     if (this.lesPoints[i][j].getJoueur() == joueur)
                         points++;
                     else
@@ -165,12 +164,19 @@ public class Grille {
                     System.out.println("diago gauche : non");
                     return true;
                 }
-                System.out.println(i +" - "+ j);
                 i++;
                 j++;
             }
         }
         System.out.println("diago gauche : non");
         return false;
+    }
+
+    public void recommencer() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                lesPoints[i][j].setJoueur(-1);
+            }
+        }
     }
 }
