@@ -11,15 +11,5 @@ public class Main {
         Fenetre fenetre = new Fenetre(joueur1, joueur2);
         fenetre.pack();
         fenetre.setVisible(true);
-
-
-
-        if (fenetre.finPartie) {
-            int refaire = showConfirmDialog(null, "Voulez recommencer une partie ?", "Recommencer", YES_NO_OPTION, QUESTION_MESSAGE);
-            if (refaire == YES_OPTION) {
-                fenetre.plateau.recommencer();
-                main(new String[]{});
-            }
-        }
     }
 }

@@ -2,6 +2,7 @@ public class Grille {
     private Points[][] lesPoints = new Points [6][7];
 
     public Grille() {
+        //initialistation des pions
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 lesPoints[i][j]  = new Points(-1);
@@ -9,15 +10,18 @@ public class Grille {
         }
     }
 
+    //fonction qui renvoie le numéro du joueur propriétaire du pions
     public int getPoint(int i, int j) {
+        //Si le pions existe
         if (this.lesPoints[i][j] != null)
             return this.lesPoints[i][j].getJoueur();
         else
-            return 0;
+            return -1;
     }
-
+    //fonction qui ajoute un pions en fonction de sa colonne
     public boolean addPoint(int colonne, int joueur) {
         for (int i = 5; i >= 0; i--) {
+            //S'il n'y a pas de pions de la case
             if (this.lesPoints[i][colonne].getJoueur() == -1) {
                 this.lesPoints[i][colonne].setJoueur(joueur);
                 return true;
@@ -26,10 +30,7 @@ public class Grille {
         return false;
     }
 
-    public void addPoint2(int c, int l, int joueur) {
-        this.lesPoints[c][l].setJoueur(joueur);
-    }
-
+    //fonction qui vérifie la victore
     public int verifierGagne() {
         int joueur;
         if (horiozontale(1) || verticale(1) || diagonnaleDroit(1) || diagonnaleGauche(1))
@@ -38,50 +39,52 @@ public class Grille {
             joueur = 1;
         else
             joueur = -1;
-        System.out.println("gagnant : " + joueur);
+
         return joueur;
-
     }
-
+    //fonction qui vérifie la victore à l'horizontale
     boolean horiozontale (int joueur) {
         int pions;
+        //parcours du tableau a la verticle puis horizontale
         for (int i = 0; i < 6; i++) {
             pions = 0;
             for (int j = 0; j < 7; j++) {
+                //si le pions appartient au joueur en question
                 if(this.lesPoints[i][j].getJoueur() == joueur)
                     pions++;
                 else
                     pions = 0;
+                //si 4 pions sont allignés
                 if (pions >= 4) {
-                    System.out.println("horizontal : oui");
                     return true;
                 }
 
             }
         }
-        System.out.println("horizontal : non");
         return false;
     }
-
+    //fonction qui vérifie la victore à la verticale
     boolean verticale(int joueur) {
         int pions;
+        //parcours du tableau a l'horizontale puis à la verticle
         for (int j = 0; j < 7; j++) {
             pions = 0;
              for (int i = 0; i < 6; i++) {
+                 //Si le pions appartient à un joueur
                 if(this.lesPoints[i][j].getJoueur() == joueur)
                     pions++;
                 else
                     pions = 0;
+                //Si 4 pions sont allignés
                 if (pions >= 4) {
-                    System.out.println("vertical : oui");
                     return true;
                 }
             }
         }
-        System.out.println("vertical : non");
         return false;
     }
 
+    //fonction qui vérifie la victore en diagonnale vers la droite
     boolean diagonnaleDroit(int joueur) {
         int points = 0;
         for (int ligne = 0; ligne < 6; ligne++) {
@@ -173,6 +176,7 @@ public class Grille {
     }
 
     public void recommencer() {
+        //remise à zéro du plateau
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 lesPoints[i][j].setJoueur(-1);

@@ -14,4 +14,8 @@ public class Joueur {
     public void gagne() {
         this.victoire++;
     }
+
+    public int getVictoire() {
+        return this.victoire;
+    }
 }
