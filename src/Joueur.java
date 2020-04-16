@@ -7,6 +7,14 @@ public class Joueur {
         this.victoire = 0;
     }
 
+    public Joueur() {
+       this.victoire = 0;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
     public String getPseudo() {
         return this.pseudo;
     }

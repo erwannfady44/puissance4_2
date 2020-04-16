@@ -96,10 +96,9 @@ public class Grille {
                 else
                     points = 0;
 
-                if (points >= 4) {
-                    System.out.println("diago droit : oui");
+                if (points >= 4)
                     return true;
-                }
+
                 i--;
             }
         }
@@ -110,24 +109,20 @@ public class Grille {
             int j = colonne;
             int i = 5;
             while (i >= 0 && j < 7) {
-                if (this.lesPoints[i][j].getJoueur() == joueur) {
+                if (this.lesPoints[i][j].getJoueur() == joueur)
                     points++;
-                }
-                else {
-                    points = 0;
-                }
 
-                if (points >= 4) {
-                    System.out.println("diago droit : oui");
+                else
+                    points = 0;
+
+
+                if (points >= 4)
                     return true;
-                }
 
                 j++;
                 i--;
             }
         }
-
-        System.out.println("diago droit : non");
         return false;
     }
 
@@ -144,10 +139,9 @@ public class Grille {
                     else
                         points = 0;
 
-                    if (points >= 4) {
-                        System.out.println("diago gauche : non");
+                    if (points >= 4)
                         return true;
-                    }
+
                     i--;
                 }
             }
@@ -163,15 +157,13 @@ public class Grille {
                 else
                     points = 0;
 
-                if (points >= 4) {
-                    System.out.println("diago gauche : non");
+                if (points >= 4)
                     return true;
-                }
+
                 i++;
                 j++;
             }
         }
-        System.out.println("diago gauche : non");
         return false;
     }
 

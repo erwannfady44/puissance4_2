@@ -10,18 +10,17 @@ public class Fenetre extends JFrame {
     protected Grille plateau = new Grille();
     private JPanel haut = new JPanel();
     private JButton[][] boutons = new JButton[6][7];
-
-    private Joueur[] joueurs;
+    private Joueur[] joueurs = new Joueur[2];
 
     int coups = 0;
 
     //constructeur de la fenêtre
-    public Fenetre(Joueur joueur1, Joueur joueur2) {
+    public Fenetre(String pseudo1, String pseudo2) {
         //titre de la fenêtre
         super("Puissance 4");
 
-        //déclaration des object joueur
-        joueurs = new Joueur[]{joueur1, joueur2};
+        joueurs[0] = new Joueur(pseudo1);
+        joueurs[1] = new Joueur(pseudo2);
 
         //définition du design de chaque partie de la fenêtre
         fenetre.setLayout(new BorderLayout());
@@ -33,7 +32,7 @@ public class Fenetre extends JFrame {
         this.setLocation(660, 240);
 
         //texte de la partie haute
-        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueur1.getPseudo() + "</p></html>"));
+        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[0].getPseudo() + "</p></html>"));
 
         //ajout à la fenêtre des différentes partie (haut et grille)
         fenetre.add(grille);
@@ -127,7 +126,8 @@ public class Fenetre extends JFrame {
             joueurs[joueurGagne].gagne();
 
             //affichage du vainqueur
-            JOptionPane.showMessageDialog(null, this.joueurs[joueurGagne].getPseudo() + " gagne");
+            JOptionPane.showMessageDialog(null,
+                    joueurs[joueurGagne].getPseudo() + " gagne");
 
             //boite de confirmation pour recommencer la partie
             int option = JOptionPane.showConfirmDialog(null, "Voulez-vous recommencer la partie", "Recommencer", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
