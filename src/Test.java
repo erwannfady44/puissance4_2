@@ -69,10 +69,8 @@ class TitreKeyListener implements KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 10){
-            label.setText("Touche pressée : " + e.getKeyCode() +
-                    " (" + e.getKeyChar() + ")");
-        }
+        label.setText("Touche pressée : " + e.getKeyCode() +
+                " (" + e.getKeyChar() + ")");
     }
 
     public void keyReleased(KeyEvent e) {
