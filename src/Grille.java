@@ -1,13 +1,19 @@
+import java.io.*;
+
 public class Grille {
-    private Points[][] lesPoints = new Points [6][7];
+    ObjectInputStream contenu;
+    ObjectOutputStream ecrire;
+    File fichier = new File("fichiers\\grille.txt");
+    private Points[][] lesPoints = new Points[6][7];
 
     public Grille() {
         //initialistation des pions
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                lesPoints[i][j]  = new Points(-1);
+                lesPoints[i][j] = new Points(i,j,-1);
             }
         }
+        ecrireTableau();
     }
 
     //fonction qui renvoie le numéro du joueur propriétaire du pions
@@ -18,18 +24,38 @@ public class Grille {
         else
             return -1;
     }
+
     //fonction qui ajoute un pions en fonction de sa colonne
     public boolean addPoint(int colonne, int joueur) {
         for (int i = 5; i >= 0; i--) {
             //S'il n'y a pas de pions de la case
             if (this.lesPoints[i][colonne].getJoueur() == -1) {
                 this.lesPoints[i][colonne].setJoueur(joueur);
+                ecrireTableau();
                 return true;
             }
         }
+
         return false;
     }
+    public void ecrireTableau() {
+        try {
+            ecrire = new ObjectOutputStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(
+                                    fichier)));
 
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 7; j++) {
+                    ecrire.writeObject(lesPoints[i][j]);
+                }
+            }
+            ecrire.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //fonction qui vérifie la victore
     public int verifierGagne() {
         int joueur;
@@ -42,6 +68,7 @@ public class Grille {
 
         return joueur;
     }
+
     //fonction qui vérifie la victore à l'horizontale
     boolean horiozontale (int joueur) {
         int pions;
@@ -63,15 +90,16 @@ public class Grille {
         }
         return false;
     }
+
     //fonction qui vérifie la victore à la verticale
     boolean verticale(int joueur) {
         int pions;
         //parcours du tableau a l'horizontale puis à la verticle
         for (int j = 0; j < 7; j++) {
             pions = 0;
-             for (int i = 0; i < 6; i++) {
-                 //Si le pions appartient à un joueur
-                if(this.lesPoints[i][j].getJoueur() == joueur)
+            for (int i = 0; i < 6; i++) {
+                //Si le pions appartient à un joueur
+                if (this.lesPoints[i][j].getJoueur() == joueur)
                     pions++;
                 else
                     pions = 0;
@@ -175,4 +203,32 @@ public class Grille {
             }
         }
     }
+
+    public void majGrille() {
+        try {
+            contenu = new ObjectInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream(fichier)));
+
+            try {
+                int[] resultat;
+                int i = 0, j = 0;
+                for (int nb = 0; nb < 42; nb++) {
+                    resultat = ((Points) contenu.readObject()).affiche();
+                    this.lesPoints[i][j] = new Points(resultat[0], resultat[1], resultat[2]);
+                    j++;
+                    if (j == 7) {
+                        j = 0;
+                        i++;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

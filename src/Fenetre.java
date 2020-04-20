@@ -47,6 +47,7 @@ public class Fenetre extends JFrame {
 
     //fonction qui créer les boutons et dessine les pions
     public void dessiner() {
+        //plateau.majGrille();
         //suppressions des boutons (pour les actualiser)
        grille.removeAll();
 
@@ -59,6 +60,7 @@ public class Fenetre extends JFrame {
             //vérification de la victoire
             gagne();
         };
+
 
         //création des pions
         for (int i = 0; i <6; i++) {
@@ -85,7 +87,6 @@ public class Fenetre extends JFrame {
 
     //fonction qui ajoute les pions
     private void jouer(ActionEvent e, JButton[][] boutons) {
-
         int colonne;
 
         //récupération de la colonne du bouton cliqué
@@ -96,10 +97,13 @@ public class Fenetre extends JFrame {
             //ajout du pions et vérification qu'il n'y a pas d'erreur (exemple : la colonne est pleine)
             if (!plateau.addPoint(colonne, coups % 2 + 1))
                 //affichage d'un message d'erreur
+            {
                 JOptionPane.showMessageDialog(null, "Impossible la colonne est déjà pleine");
+            }
             //S'il n'y a pas d'erreur le tour et joué
-            else
+            else {
                 coups++;
+            }
         }
         //S'il y a une erreur dans la récupération de la colonne
         else {
@@ -111,7 +115,7 @@ public class Fenetre extends JFrame {
         haut.removeAll();
         haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[(coups) % 2].getPseudo() + "</p></html>"));
 
-        //mise à jour des pions
+       // plateau.majGrille();
         dessiner();
     }
 

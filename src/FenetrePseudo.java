@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class FenetrePseudo extends JFrame implements KeyListener {
+public class FenetrePseudo extends JFrame {
 
     JTextField champs1;
     JTextField champs2;
@@ -28,6 +28,7 @@ public class FenetrePseudo extends JFrame implements KeyListener {
 
         champs1 = new JTextField();
         champs2 = new JTextField();
+        champs2.addKeyListener(new ClavierListener());
 
         btValider.setMnemonic('A');
 
@@ -40,28 +41,19 @@ public class FenetrePseudo extends JFrame implements KeyListener {
         this.setContentPane(fenetre);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
+    public String getPseudo1() {
+        return champs1.getText();
     }
 
-    public void keyPressed(KeyEvent e){
-        if (e.getKeyCode() == 10){
-            System.out.println("Touche pressée : " + e.getKeyCode() +
-                    " (" + e.getKeyChar() + ")");
-        }
-        Fenetre fenetre = new Fenetre(champs1.getText(), champs2.getText());
-        fenetre.pack();
-        fenetre.setVisible(true);
-        this.dispose();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    public String getPseudo2() {
+        return champs2.getText();
     }
 
     private void actionPerformed(ActionEvent e) {
+        quitter();
+    }
+
+    private void quitter() {
         Fenetre fenetre = new Fenetre(champs1.getText(), champs2.getText());
         fenetre.pack();
         fenetre.setVisible(true);
