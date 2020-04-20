@@ -18,7 +18,6 @@ public class Points  implements Serializable{
     }
 
     public int[] affiche() {
-        int[] retour = {this.i, this.j, this.joueur};
-        return retour;
+        return new int[]{this.i, this.j, this.joueur};
     }
 }

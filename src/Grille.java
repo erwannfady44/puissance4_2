@@ -1,6 +1,7 @@
 import java.io.*;
 
 public class Grille {
+    Ftp ftp = new Ftp();
     ObjectInputStream contenu;
     ObjectOutputStream ecrire;
     File fichier = new File("fichiers\\grille.txt");
@@ -9,11 +10,10 @@ public class Grille {
     public Grille() {
         //initialistation des pions
         for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
-                lesPoints[i][j] = new Points(i,j,-1);
-            }
+            for (int j = 0; j < 7; j++)
+                lesPoints[i][j] = new Points(i, j, -1);
         }
-        ecrireTableau();
+        ecrireTableau(false);
     }
 
     //fonction qui renvoie le numéro du joueur propriétaire du pions
@@ -31,30 +31,45 @@ public class Grille {
             //S'il n'y a pas de pions de la case
             if (this.lesPoints[i][colonne].getJoueur() == -1) {
                 this.lesPoints[i][colonne].setJoueur(joueur);
-                ecrireTableau();
+                ecrireTableau(false);
                 return true;
             }
         }
 
         return false;
     }
-    public void ecrireTableau() {
-        try {
-            ecrire = new ObjectOutputStream(
-                    new BufferedOutputStream(
-                            new FileOutputStream(
-                                    fichier)));
 
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 7; j++) {
-                    ecrire.writeObject(lesPoints[i][j]);
+    public void ecrireTableau(boolean raz) {
+        if (!raz) {
+            try {
+                ecrire = new ObjectOutputStream(
+                        new BufferedOutputStream(
+                                new FileOutputStream(
+                                        fichier)));
+
+                for (int i = 0; i < 6; i++) {
+                    for (int j = 0; j < 7; j++) {
+                        ecrire.writeObject(lesPoints[i][j]);
+                    }
                 }
-            }
-            ecrire.close();
+                ecrire.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        else {
+            fichier.delete();
+            File fichier = new File("fichiers\\grille.txt");
+
+            try {
+                fichier.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        ftp.upload();
     }
     //fonction qui vérifie la victore
     public int verifierGagne() {
@@ -226,9 +241,13 @@ public class Grille {
                 e.printStackTrace();
             }
 
+            contenu.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ftp.upload();
     }
 }
 

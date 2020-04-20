@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Fenetre extends JFrame {
 
@@ -12,7 +15,7 @@ public class Fenetre extends JFrame {
     private JButton[][] boutons = new JButton[6][7];
     private Joueur[] joueurs = new Joueur[2];
 
-    int coups = 0;
+    public static int coups = 0;
 
     //constructeur de la fenêtre
     public Fenetre(String pseudo1, String pseudo2) {
@@ -47,7 +50,6 @@ public class Fenetre extends JFrame {
 
     //fonction qui créer les boutons et dessine les pions
     public void dessiner() {
-        //plateau.majGrille();
         //suppressions des boutons (pour les actualiser)
        grille.removeAll();
 
@@ -115,8 +117,8 @@ public class Fenetre extends JFrame {
         haut.removeAll();
         haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[(coups) % 2].getPseudo() + "</p></html>"));
 
-       // plateau.majGrille();
         dessiner();
+        plateau.majGrille();
     }
 
     //fonction qui vérifie si qu'un a gagné
@@ -196,7 +198,7 @@ public class Fenetre extends JFrame {
                 //affichage d'un message
                 JOptionPane.showMessageDialog(null, "Egalité " + victoireJoueur2 + " - " + victoireJoueur1);
         }
-        //fermeture du programme
+        plateau.ecrireTableau(true);
         System.exit(0);
     }
 }
