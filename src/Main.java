@@ -1,17 +1,37 @@
-import java.awt.*;
-import java.io.File;
-//import static javax.swing.JOptionPane.*;
-
 public class Main {
-    public static FenetrePseudo fenetrePseudo;
+    public static Fichier fichier;
+    public static Ftp ftp;
+    public static FenetrePseudo pseudo;
+    public static Fenetre fenetre;
+
     public static void main(String[] args) {
-        fenetrePseudo = new FenetrePseudo();
-        //fenetrePseudo.setIconImage(new ImageIcon("images/logo-puissance-4.png").getImage());
+        /*ThreadJeu jeu = new ThreadJeu();
+        //jeu.start();
+        jeu.run();*/
 
-        Image icone = Toolkit.getDefaultToolkit().getImage(".\\images\\logo-puissance-4.png");
-        fenetrePseudo.setIconImage(icone);
+        pseudo = new FenetrePseudo();
+        pseudo.pack();
+        pseudo.setVisible(true);
 
-        fenetrePseudo.pack();
-        fenetrePseudo.setVisible(true);
+        /*ftp = new Ftp();
+        fichier = new Fichier();
+        fichier.writeCoups(0);
+        ftp.upload();*/
+    }
+
+    public static void cretionFichier() {
+        fichier = new Fichier();
+
+        int coups = fichier.getCoups();
+        fichier.incrementerCoups();
+        Joueur[] joueurs = fichier.getJoueur();
+        int numero = fichier.getNumero();
+        Grille grille = fichier.getGrille();
+
+        fenetre = new Fenetre(grille, coups, joueurs, numero);
+        fenetre.pack();
+        fenetre.setVisible(true);
+
+        //fichier.start();
     }
 }

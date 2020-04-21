@@ -1,12 +1,10 @@
 import java.io.Serializable;
 
-public class Points  implements Serializable{
+public class Points  implements Serializable {
     private int i, j, joueur;
 
-    public Points (int i, int j,int joueur) {
+    public Points (int joueur) {
         this.joueur = joueur;
-        this.i = i;
-        this.j = j;
     }
 
     public void setJoueur(int joueur) {

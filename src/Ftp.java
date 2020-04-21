@@ -4,12 +4,29 @@ import org.apache.commons.net.ftp.FTPClient;
 import java.io.*;
 import java.net.SocketException;
 
-public class Ftp {
+public class Ftp extends Thread{
     private String serveur = "149.202.19.146";
     private int port = 21;
     private String user = "puissance4";
     private String password = "Xona31~0";
 
+    public Ftp() {
+        super("ftp");
+        this.download();
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            Main.fichier.update();
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void upload() {
         FTPClient ftpClient = new FTPClient();
@@ -22,13 +39,27 @@ public class Ftp {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             // Approche 1: upload d'un fichier en utilisant InputStream
-            File file = new File("fichiers\\grille.txt");
+            File fichierCoups = new File("fichiers\\coups.txt");
+            File fichierGrille = new File("fichiers\\grille.txt");
+            File fichierJoueurs = new File("fichiers\\joueurs.txt");
 
             String chemin = "grille.txt";
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(fichierGrille);
 
             //résultat de l'upload
             boolean res = ftpClient.storeFile(chemin, inputStream);
+
+            chemin = "coups.txt";
+            inputStream = new FileInputStream(fichierCoups);
+
+            //résultat de l'upload
+            res = ftpClient.storeFile(chemin, inputStream);
+
+            chemin = "joueurs.txt";
+            inputStream = new FileInputStream(fichierJoueurs);
+
+            //résultat de l'upload
+            res = ftpClient.storeFile(chemin, inputStream);
             //fermet le flut de lecture
             inputStream.close();
 
@@ -54,18 +85,29 @@ public class Ftp {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             // Approche 1: upload d'un fichier en utilisant InputStream
-            File file = new File("fichiers\\grilles.txt");
+            File fichierCoups = new File("fichiers\\coups.txt");
+            File fichierGrille = new File("fichiers\\grille.txt");
+            File fichierJoueurs = new File("fichiers\\joueurs.txt");
 
-            String chemin = "grille.txt";
-            FileOutputStream ops = new FileOutputStream(file);
+            String chemin = "coups.txt";
+            FileOutputStream ops = new FileOutputStream(fichierCoups);
 
             //résultat de l'upload
             boolean res = ftpClient.retrieveFile(chemin, ops);
+
+            chemin = "grille.txt";
+            ops = new FileOutputStream(fichierGrille);
+
+            //résultat de l'upload
+            res = ftpClient.retrieveFile(chemin, ops);
+
+            chemin = "joueurs.txt";
+            ops = new FileOutputStream(fichierJoueurs);
+
+            //résultat de l'upload
+            res = ftpClient.retrieveFile(chemin, ops);
             //fermet le flut de lecture
             ops.close();
-
-
-
 
         } catch (SocketException e) {
 

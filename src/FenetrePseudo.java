@@ -1,14 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class FenetrePseudo extends JFrame {
-
     JTextField champs1;
-    JTextField champs2;
+    private String pseudo;
 
     public FenetrePseudo (){
 
@@ -27,26 +23,28 @@ public class FenetrePseudo extends JFrame {
         btValider.addActionListener(valider);
 
         champs1 = new JTextField();
-        champs2 = new JTextField();
-        champs2.addKeyListener(new ClavierListener());
+        champs1.addKeyListener(new ClavierListener());
 
         btValider.setMnemonic('A');
 
-        fenetre.add(new JLabel("Veuillez entrer le nom du joueurs 1"));
+        fenetre.add(new JLabel("Veuillez entrer votre pseudo"));
         fenetre.add(champs1);
-        fenetre.add(new JLabel("Veuillez entrer le nom du joueurs 2"));
-        fenetre.add(champs2);
 
         fenetre.add(btValider);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quitter();
+            }
+        });
+
         this.setContentPane(fenetre);
     }
 
-    public String getPseudo1() {
-        return champs1.getText();
-    }
-
-    public String getPseudo2() {
-        return champs2.getText();
+    public String getPseudo() {
+        return this.pseudo;
     }
 
     private void actionPerformed(ActionEvent e) {
@@ -54,9 +52,7 @@ public class FenetrePseudo extends JFrame {
     }
 
     private void quitter() {
-        Fenetre fenetre = new Fenetre(champs1.getText(), champs2.getText());
-        fenetre.pack();
-        fenetre.setVisible(true);
         this.dispose();
+        Main.cretionFichier();
     }
 }
