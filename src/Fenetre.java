@@ -72,12 +72,13 @@ public class Fenetre extends JFrame {
 
         if (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
             fenetre.add(new JLabel("En attente d'un 2e joueur"));
+            Main.fichier.setPause(false);
         }
 
         else {
             //suppressions des boutons (pour les actualiser)
 
-
+            Main.fichier.setPause(true);
             grille.removeAll();
 
             //fonction réalisé au cliv sur un bouton
