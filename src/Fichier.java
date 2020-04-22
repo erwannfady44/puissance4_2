@@ -28,19 +28,29 @@ public class Fichier extends Thread {
             } else {
                 this.numero = 1;
 
-                /*ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
+                ObjectInputStream ois;
 
-                Joueur joueur = (Joueur) ois.readObject();
+                try {
+                    ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
 
-                joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
+                    Joueur joueur = (Joueur) ois.readObject();
+                    joueurs = new Joueur[]{joueur, new Joueur(Main.pseudo.getPseudo())};
+                    ois.close();
+
+                    this.writeJoueur(joueurs);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
 
-                ois.close();*/
+
                 joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
                 writeJoueur(joueurs);
 
             }
-
+            System.out.println(Main.pseudo.getPseudo());
             writeGrille(new Grille());
         }
         ftp.upload();

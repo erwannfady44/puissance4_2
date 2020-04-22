@@ -48,6 +48,7 @@ public class FenetrePseudo extends JFrame {
     }
 
     private void actionPerformed(ActionEvent e) {
+        pseudo = this.champs1.getText();
         quitter();
     }
 
