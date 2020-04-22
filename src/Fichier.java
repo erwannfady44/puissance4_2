@@ -38,12 +38,9 @@ public class Fichier extends Thread {
                     ois.close();
 
                     this.writeJoueur(joueurs);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-
 
 
                 joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};

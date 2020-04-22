@@ -44,8 +44,8 @@ public class Fenetre extends JFrame {
         });
 
         //texte de la partie haute
-        //haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[0].getPseudo() + "</p></html>"));
-        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de 0 </p></html>"));
+        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[this.getCoups() % 2].getPseudo() + "</p></html>"));
+        //haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de 0 </p></html>"));
 
         //ajout à la fenêtre des différentes partie (haut et grille)
         fenetre.add(grille);
