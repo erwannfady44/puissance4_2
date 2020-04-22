@@ -7,15 +7,9 @@ public class Main {
     public static Fenetre fenetre;
 
     public static void main(String[] args) {
-        fichier = new Fichier(true);
-        fichier.delete();
-
         pseudo = new FenetrePseudo();
         pseudo.pack();
         pseudo.setVisible(true);
-
-
-
     }
 
     public static void cretionFichier() {
@@ -29,16 +23,20 @@ public class Main {
     }
 
     public static void update() {
-        fichier.suspend();
+        fichier.setPause(true);
         fichier.update();
+        //System.out.println(fenetre.getCoups());
         fenetre.update(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur());
-        fichier.resume();
+        fichier.setPause(false);
     }
 
     public static void quitter() {
-        fichier.delete();
-        System.out.println(fichier.getCoups());
-        fichier.stop();
+        if (!fichier.isPause()) {
+            fichier.setPause(true);
+            fichier.delete();
+            System.out.println(fichier.getCoups());
+        }
+        fichier.interrupt();
         System.exit(0);
     }
 }

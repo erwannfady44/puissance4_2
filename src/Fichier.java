@@ -9,6 +9,7 @@ public class Fichier extends Thread {
     File fichierJoueurs;
     File fichierCoups;
     private int numero;
+    boolean pause;
 
     public Fichier(boolean del) {
         super("ftp");
@@ -46,13 +47,23 @@ public class Fichier extends Thread {
         ftp.upload();
     }
 
+    public void setPause(boolean b) {
+        this.pause = b;
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
     @Override
     public void run() {
-        while (this.getState() != State.WAITING) {
-            System.out.println(this.getCoups());
-            this.update();
+        while (true) {
+            while ((!this.pause) && ((Main.fenetre.getCoups() % 2) != 0)) {
+                this.update();
+                System.out.println("update");
+            }
             try {
-                sleep(500);
+                sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -65,11 +76,7 @@ public class Fichier extends Thread {
         try {
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fichierGrille)));
 
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 6; j++) {
-                    oos.writeObject(new Points(-1));
-                }
-            }
+            oos.writeObject(grille);
 
             oos.close();
         } catch (IOException e) {
@@ -153,18 +160,11 @@ public class Fichier extends Thread {
 
     public Grille getGrille() {
         ObjectInputStream ois;
-        Points[][] lesPoints = new Points[6][7];
+        Grille grille = null;
         try {
             ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierGrille)));
             int i = 0, j = 0;
-            for (int n = 0; n < 42; n++) {
-                lesPoints[i][j] = (Points) ois.readObject();
-                j++;
-                if (j == 7) {
-                    i++;
-                    j = 0;
-                }
-            }
+            grille = (Grille) ois.readObject();
             ois.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class Fichier extends Thread {
             e.printStackTrace();
             System.exit(-1);
         }
-        return new Grille(lesPoints);
+        return grille;
     }
 
     public int getNumero() {

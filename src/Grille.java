@@ -1,4 +1,6 @@
-public class Grille {
+import java.io.Serializable;
+
+public class Grille implements Serializable {
     public Points[][] lesPoints = new Points[6][7];
 
     public Grille() {

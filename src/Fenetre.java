@@ -127,8 +127,9 @@ public class Fenetre extends JFrame {
             {
                 JOptionPane.showMessageDialog(null, "Impossible la colonne est déjà pleine");
             }
-            //S'il n'y a pas d'erreur le tour et joué
+            //S'il n'y a pas d'erreur le tour est joué
             else {
+                Main.fichier.writeGrille(plateau);
                 Main.fichier.incrementerCoups();
             }
         }
@@ -225,5 +226,9 @@ public class Fenetre extends JFrame {
         }
         Main.fichier.delete();
         System.exit(0);
+    }
+
+    public int getCoups() {
+        return this.coups;
     }
 }
