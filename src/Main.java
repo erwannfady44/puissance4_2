@@ -15,11 +15,11 @@ public class Main {
     public static void cretionFichier() {
         fichier = new Fichier(false);
 
+        fichier.start();
         fenetre = new Fenetre(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur(), fichier.getNumero());
         fenetre.pack();
         fenetre.setVisible(true);
         System.out.println(fichier.getCoups());
-        fichier.start();
     }
 
     public static void update() {
