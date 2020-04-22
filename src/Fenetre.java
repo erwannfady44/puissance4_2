@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import static java.lang.Thread.sleep;
+
 
 public class Fenetre extends JFrame {
 
@@ -44,7 +46,7 @@ public class Fenetre extends JFrame {
         });
 
         //texte de la partie haute
-        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[this.getCoups() % 2].getPseudo() + "</p></html>"));
+        haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de " + this.joueurs[this.getCoups() % 2].getPseudo() + "</p></html>"));
         //haut.add(new JLabel("<html><p>Veuillez cliquer sur un case</p> <p>Tour de 0 </p></html>"));
 
         //ajout à la fenêtre des différentes partie (haut et grille)
@@ -52,7 +54,7 @@ public class Fenetre extends JFrame {
         fenetre.add(haut, BorderLayout.NORTH);
 
         //dessin et definition des boutons et pions
-        dessiner();
+       dessiner();
 
         //déclare le panneau fenêtre comme panneau principale
         this.setContentPane(fenetre);
@@ -67,8 +69,19 @@ public class Fenetre extends JFrame {
 
     //fonction qui créer les boutons et dessine les pions
     public void dessiner() {
+
+        while (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
+            fenetre.add(new JLabel("En attente d'un 2e joueur"));
+
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         //suppressions des boutons (pour les actualiser)
-       grille.removeAll();
+        grille.removeAll();
 
        //fonction réalisé au cliv sur un bouton
         ActionListener ajoutPoint;

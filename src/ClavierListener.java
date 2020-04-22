@@ -11,8 +11,7 @@ public class ClavierListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == 10) {
-            Main.pseudo.dispose();
-            Main.fichier = new Fichier(false);
+            Main.pseudo.quitter();
         }
     }
 
