@@ -9,6 +9,7 @@ public class Fichier extends Thread {
     File fichierJoueurs;
     File fichierCoups;
     private int numero;
+    private boolean pseudoSet = false;
     boolean pause;
 
     public Fichier(boolean del) {
@@ -52,6 +53,10 @@ public class Fichier extends Thread {
         ftp.upload();
     }
 
+    public void PseudoSet {
+        this.pseudoSet = true;
+    }
+
     public void setPause(boolean b) {
         this.pause = b;
     }
@@ -63,7 +68,7 @@ public class Fichier extends Thread {
     @Override
     public void run() {
         while (true) {
-            while ((!this.pause) && ((Main.fenetre.getCoups() % 2) != this.getNumero())) {
+            while ((!this.pause) && (((Main.fenetre.getCoups() % 2) != this.getNumero()) || (!this.pseudoSet))) {
                 this.update();
                 System.out.println("update");
             }
