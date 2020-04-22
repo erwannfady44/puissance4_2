@@ -47,7 +47,6 @@ public class Fichier extends Thread {
                 writeJoueur(joueurs);
 
             }
-            System.out.println(Main.pseudo.getPseudo());
             writeGrille(new Grille());
         }
         ftp.upload();

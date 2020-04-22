@@ -15,8 +15,6 @@ public class Main {
     public static void cretionFichier() {
         fichier = new Fichier(false);
 
-        System.out.println("nb : "+fichier.getNumero());
-
         fenetre = new Fenetre(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur(), fichier.getNumero());
         fenetre.pack();
         fenetre.setVisible(true);

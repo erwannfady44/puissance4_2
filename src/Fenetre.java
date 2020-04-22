@@ -115,8 +115,8 @@ public class Fenetre extends JFrame {
                     //ajout de tous le boutons (et pions) à la grille
                     grille.add(boutons[i][j]);
                 }
+                fenetre.updateUI();
             }
-            fenetre.updateUI();
         }
     }
 
