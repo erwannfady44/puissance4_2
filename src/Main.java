@@ -22,6 +22,7 @@ public class Main {
     }
 
     public static void update() {
+        System.out.println("update2");
         fichier.setPause(true);
         fichier.update();
         //System.out.println(fenetre.getCoups());
