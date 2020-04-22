@@ -78,12 +78,13 @@ public class Fenetre extends JFrame {
                 jouer(e, boutons);
 
                 //vérification de la victoire
-                gagne();
+
             }
 
             else {
                 JOptionPane.showMessageDialog(null, "Tour de " +joueurs[coups % 2].getPseudo());
             }
+            gagne();
         };
 
 
