@@ -73,7 +73,7 @@ public class Fenetre extends JFrame {
        //fonction réalisé au cliv sur un bouton
         ActionListener ajoutPoint;
         ajoutPoint = e -> {
-            /*if (this.coups % 2 == numeroJoueur) {
+            if (this.coups % 2 == numeroJoueur) {
                 //ajout du pions
                 jouer(e, boutons);
 
@@ -83,9 +83,7 @@ public class Fenetre extends JFrame {
 
             else {
                 JOptionPane.showMessageDialog(null, "Tour de " +joueurs[coups % 2].getPseudo());
-            }*/
-            jouer(e, boutons);
-            gagne();
+            }
         };
 
 
