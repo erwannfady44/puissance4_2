@@ -142,7 +142,7 @@ public class Fenetre extends JFrame {
         //Mise à jour du joueur qui doit jouer
         haut.removeAll();
         //haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[(coups) % 2].getPseudo() + "</p></html>"));
-        haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[((coups) % 2)].getPseudo()+ "</p></html>"));
+        haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + ((coups) % 2) + "</p></html>"));
         Main.update();
         dessiner();
     }

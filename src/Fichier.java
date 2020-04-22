@@ -24,22 +24,21 @@ public class Fichier extends Thread {
                 this.writeCoups(0);
                 this.numero = 0;
                 joueurs = new Joueur[]{new Joueur(Main.pseudo.getPseudo()), new Joueur()};
-
                 writeJoueur(joueurs);
             } else {
                 this.numero = 1;
-                try {
-                    ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
 
-                    Joueur joueur = (Joueur) ois.readObject();
+                /*ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
 
-                    joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
+                Joueur joueur = (Joueur) ois.readObject();
 
-                    ois.close();
-                    writeJoueur(joueurs);
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
+
+
+                ois.close();*/
+                joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
+                writeJoueur(joueurs);
+
             }
 
             writeGrille(new Grille());
