@@ -70,58 +70,54 @@ public class Fenetre extends JFrame {
     //fonction qui créer les boutons et dessine les pions
     public void dessiner() {
 
-        while (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
+        if (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
             fenetre.add(new JLabel("En attente d'un 2e joueur"));
-
-            try {
-                sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
-        //suppressions des boutons (pour les actualiser)
-        grille.removeAll();
+        else {
+            //suppressions des boutons (pour les actualiser)
 
-       //fonction réalisé au cliv sur un bouton
-        ActionListener ajoutPoint;
-        ajoutPoint = e -> {
-            if (this.coups % 2 == numeroJoueur) {
-                //ajout du pions
-                jouer(e, boutons);
 
-                //vérification de la victoire
+            grille.removeAll();
 
+            //fonction réalisé au cliv sur un bouton
+            ActionListener ajoutPoint;
+            ajoutPoint = e -> {
+                if (this.coups % 2 == numeroJoueur) {
+                    //ajout du pions
+                    jouer(e, boutons);
+
+                    //vérification de la victoire
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tour de " + joueurs[coups % 2].getPseudo());
+                }
+                gagne();
+            };
+
+
+            //création des pions
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 7; j++) {
+                    //si le pions appartient au joueur 1
+                    if (this.plateau.getPoint(i, j) == 2)
+                        boutons[i][j] = new Bouton_rond(Color.RED);
+                        //si le pions appartient au joueur 2
+                    else if (this.plateau.getPoint(i, j) == 1)
+                        boutons[i][j] = new Bouton_rond(Color.YELLOW);
+                        //s'il n'y a pas de pions
+                    else
+                        boutons[i][j] = new Bouton_rectangle();
+
+                    //rend le bouton cliquable
+                    boutons[i][j].addActionListener(ajoutPoint);
+
+                    //ajout de tous le boutons (et pions) à la grille
+                    grille.add(boutons[i][j]);
+                }
             }
-
-            else {
-                JOptionPane.showMessageDialog(null, "Tour de " +joueurs[coups % 2].getPseudo());
-            }
-            gagne();
-        };
-
-
-        //création des pions
-        for (int i = 0; i <6; i++) {
-            for (int j = 0; j < 7; j++) {
-                //si le pions appartient au joueur 1
-                if (this.plateau.getPoint(i, j) == 2)
-                    boutons[i][j] = new Bouton_rond(Color.RED);
-                //si le pions appartient au joueur 2
-                else if (this.plateau.getPoint(i, j) == 1)
-                    boutons[i][j] = new Bouton_rond(Color.YELLOW);
-                //s'il n'y a pas de pions
-                else
-                    boutons[i][j] = new Bouton_rectangle();
-
-                //rend le bouton cliquable
-                boutons[i][j].addActionListener(ajoutPoint);
-
-                //ajout de tous le boutons (et pions) à la grille
-                grille.add(boutons[i][j]);
-            }
+            fenetre.updateUI();
         }
-        fenetre.updateUI();
     }
 
     //fonction qui ajoute les pions
