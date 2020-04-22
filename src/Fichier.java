@@ -20,7 +20,7 @@ public class Fichier extends Thread {
         Joueur[] joueurs;
         ftp = new Ftp();
         if (!del) {
-            if (this.getCoups() == 0) {
+            if (this.getCoups() == -1) {
                 this.writeCoups(0);
                 this.numero = 0;
                 joueurs = new Joueur[]{new Joueur(Main.pseudo.getPseudo()), new Joueur()};
@@ -206,7 +206,7 @@ public class Fichier extends Thread {
             fichierCoups.createNewFile();
             fichierGrille.createNewFile();
 
-            this.writeCoups(0);
+            this.writeCoups(-1);
         } catch (IOException e) {
             e.printStackTrace();
         }
