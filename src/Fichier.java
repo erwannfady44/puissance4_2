@@ -53,7 +53,7 @@ public class Fichier extends Thread {
         ftp.upload();
     }
 
-    public void PseudoSet {
+    public void pseudoSet() {
         this.pseudoSet = true;
     }
 

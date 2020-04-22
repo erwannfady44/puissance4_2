@@ -80,6 +80,7 @@ public class Fenetre extends JFrame {
             //suppressions des boutons (pour les actualiser)
 
             Main.fichier.setPause(true);
+            Main.fichier.pseudoSet();
             grille.removeAll();
 
             //fonction réalisé au cliv sur un bouton
