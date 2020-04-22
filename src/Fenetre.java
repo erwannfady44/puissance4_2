@@ -39,7 +39,7 @@ public class Fenetre extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.exit(0);
+                Main.quitter();
             }
         });
 
@@ -73,7 +73,7 @@ public class Fenetre extends JFrame {
        //fonction réalisé au cliv sur un bouton
         ActionListener ajoutPoint;
         ajoutPoint = e -> {
-            if (coups % 2 == numeroJoueur) {
+            /*if (this.coups % 2 == numeroJoueur) {
                 //ajout du pions
                 jouer(e, boutons);
 
@@ -83,7 +83,9 @@ public class Fenetre extends JFrame {
 
             else {
                 JOptionPane.showMessageDialog(null, "Tour de " +joueurs[coups % 2].getPseudo());
-            }
+            }*/
+            jouer(e, boutons);
+            gagne();
         };
 
 
@@ -140,9 +142,8 @@ public class Fenetre extends JFrame {
         haut.removeAll();
         //haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[(coups) % 2].getPseudo() + "</p></html>"));
         haut.add(new JLabel("<html><p style=\"text-align: center;\">Veuillez cliquer sur un case</p> <p>Tour de " + joueurs[((coups) % 2)].getPseudo()+ "</p></html>"));
-        Main.fichier.writeGrille(plateau);
+        Main.update();
         dessiner();
-        Main.fichier.update();
     }
 
     //fonction qui vérifie si qu'un a gagné

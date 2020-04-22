@@ -8,6 +8,6 @@ public class ThreadJeu extends Thread {
     }
     @Override
     public void run() {
-        Main.fichier = new Fichier();
+        Main.fichier = new Fichier(false);
     }
 }

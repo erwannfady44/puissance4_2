@@ -12,7 +12,7 @@ public class ClavierListener implements KeyListener {
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == 10) {
             Main.pseudo.dispose();
-            Main.fichier = new Fichier();
+            Main.fichier = new Fichier(false);
         }
     }
 

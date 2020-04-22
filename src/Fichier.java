@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class Fichier extends Thread {
@@ -8,47 +10,49 @@ public class Fichier extends Thread {
     File fichierCoups;
     private int numero;
 
-    public Fichier() {
+    public Fichier(boolean del) {
         super("ftp");
 
-        fichierCoups = new File("fichiers\\coups.txt");
-        fichierJoueurs = new File("fichiers\\joueurs.txt");
-        fichierGrille = new File("fichiers\\grille.txt");
+        fichierCoups = new File("fichiers/coups.txt");
+        fichierJoueurs = new File("fichiers/joueurs.txt");
+        fichierGrille = new File("fichiers/grille.txt");
         Joueur[] joueurs;
         ftp = new Ftp();
+        if (!del) {
+            if (this.getCoups() == 0) {
+                this.writeCoups(0);
+                this.numero = 0;
+                joueurs = new Joueur[]{new Joueur(Main.pseudo.getPseudo()), new Joueur()};
 
-        if (this.getCoups() == 0) {
-            this.writeCoups(0);
-            this.numero = 0;
-            joueurs = new Joueur[]{new Joueur(Main.pseudo.getPseudo()), new Joueur()};
-
-            writeJoueur(joueurs);
-        } else {
-            this.numero = 1;
-            try {
-                ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
-
-                Joueur joueur = (Joueur) ois.readObject();
-
-                joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
-
-                ois.close();
                 writeJoueur(joueurs);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+            } else {
+                this.numero = 1;
+                try {
+                    ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichierJoueurs)));
 
-        writeGrille(new Grille());
+                    Joueur joueur = (Joueur) ois.readObject();
+
+                    joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
+
+                    ois.close();
+                    writeJoueur(joueurs);
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            writeGrille(new Grille());
+        }
         ftp.upload();
     }
 
     @Override
     public void run() {
-        while (true) {
-            update();
+        while (this.getState() != State.WAITING) {
+            System.out.println(this.getCoups());
+            this.update();
             try {
-                sleep(1000);
+                sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -117,7 +121,6 @@ public class Fichier extends Thread {
             dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fichierCoups)));
             dos.writeInt(coups);
             dos.close();
-            ftp.upload();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,7 +136,7 @@ public class Fichier extends Thread {
 
         try {
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fichierCoups)));
-            coups = dis.readInt();
+            coups = (int) dis.readInt();
 
             dis.close();
 
@@ -186,17 +189,28 @@ public class Fichier extends Thread {
     }
 
     public void delete() {
-        this.fichierCoups.delete();
+        /*this.fichierCoups.delete();
         this.fichierGrille.delete();
-        this.fichierJoueurs.delete();
+        this.fichierJoueurs.delete();*/
+
+        try {
+            Files.delete(Paths.get("fichiers/grille.txt"));
+            Files.delete(Paths.get("fichiers/coups.txt"));
+            Files.delete(Paths.get("fichiers/joueurs.txt"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             fichierJoueurs.createNewFile();
             fichierCoups.createNewFile();
             fichierGrille.createNewFile();
+
+            this.writeCoups(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ftp.upload();
     }
 }
 

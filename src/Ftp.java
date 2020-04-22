@@ -39,21 +39,23 @@ public class Ftp extends Thread{
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             // Approche 1: upload d'un fichier en utilisant InputStream
-            File fichierCoups = new File("fichiers\\coups.txt");
-            File fichierGrille = new File("fichiers\\grille.txt");
-            File fichierJoueurs = new File("fichiers\\joueurs.txt");
+            File fichierCoups = new File("fichiers/coups.txt");
+            File fichierGrille = new File("fichiers/grille.txt");
+            File fichierJoueurs = new File("fichiers/joueurs.txt");
 
             String chemin = "grille.txt";
             InputStream inputStream = new FileInputStream(fichierGrille);
 
             //résultat de l'upload
             boolean res = ftpClient.storeFile(chemin, inputStream);
+            inputStream.close();
 
             chemin = "coups.txt";
             inputStream = new FileInputStream(fichierCoups);
 
             //résultat de l'upload
             res = ftpClient.storeFile(chemin, inputStream);
+            inputStream.close();
 
             chemin = "joueurs.txt";
             inputStream = new FileInputStream(fichierJoueurs);
@@ -85,21 +87,23 @@ public class Ftp extends Thread{
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             // Approche 1: upload d'un fichier en utilisant InputStream
-            File fichierCoups = new File("fichiers\\coups.txt");
-            File fichierGrille = new File("fichiers\\grille.txt");
-            File fichierJoueurs = new File("fichiers\\joueurs.txt");
+            File fichierCoups = new File("fichiers/coups.txt");
+            File fichierGrille = new File("fichiers/grille.txt");
+            File fichierJoueurs = new File("fichiers/joueurs.txt");
 
             String chemin = "coups.txt";
             FileOutputStream ops = new FileOutputStream(fichierCoups);
 
             //résultat de l'upload
             boolean res = ftpClient.retrieveFile(chemin, ops);
+            ops.close();
 
             chemin = "grille.txt";
             ops = new FileOutputStream(fichierGrille);
 
             //résultat de l'upload
             res = ftpClient.retrieveFile(chemin, ops);
+            ops.close();
 
             chemin = "joueurs.txt";
             ops = new FileOutputStream(fichierJoueurs);

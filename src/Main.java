@@ -1,3 +1,5 @@
+import static java.lang.Thread.sleep;
+
 public class Main {
     public static Fichier fichier;
     public static Ftp ftp;
@@ -5,33 +7,38 @@ public class Main {
     public static Fenetre fenetre;
 
     public static void main(String[] args) {
-        /*ThreadJeu jeu = new ThreadJeu();
-        //jeu.start();
-        jeu.run();*/
+        fichier = new Fichier(true);
+        fichier.delete();
 
         pseudo = new FenetrePseudo();
         pseudo.pack();
         pseudo.setVisible(true);
 
-        /*ftp = new Ftp();
-        fichier = new Fichier();
-        fichier.writeCoups(0);
-        ftp.upload();*/
+
+
     }
 
     public static void cretionFichier() {
-        fichier = new Fichier();
+        fichier = new Fichier(false);
 
-        int coups = fichier.getCoups();
-        fichier.incrementerCoups();
-        Joueur[] joueurs = fichier.getJoueur();
-        int numero = fichier.getNumero();
-        Grille grille = fichier.getGrille();
-
-        fenetre = new Fenetre(grille, coups, joueurs, numero);
+        fenetre = new Fenetre(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur(), fichier.getNumero());
         fenetre.pack();
         fenetre.setVisible(true);
+        System.out.println(fichier.getCoups());
+        fichier.start();
+    }
 
-        //fichier.start();
+    public static void update() {
+        fichier.suspend();
+        fichier.update();
+        fenetre.update(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur());
+        fichier.resume();
+    }
+
+    public static void quitter() {
+        fichier.delete();
+        System.out.println(fichier.getCoups());
+        fichier.stop();
+        System.exit(0);
     }
 }
