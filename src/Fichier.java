@@ -70,15 +70,9 @@ public class Fichier extends Thread {
     public void run() {
         while (true) {
             while (!this.pause) {
-                if (!pseudoSet) {
-                    Main.update();
-                }
-
-                else if ((Main.fenetre.getCoups() % 2) != this.getNumero()) {
+                if (!pseudoSet || (Main.fenetre.getCoups() % 2) != this.getNumero()) {
                     this.update();
-                    System.out.println("update");
                 }
-
             }
             try {
                 sleep(1);
