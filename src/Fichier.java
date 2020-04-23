@@ -9,13 +9,11 @@ public class Fichier extends Thread {
     File fichierJoueurs;
     File fichierCoups;
     private int numero;
-    private boolean pseudoSet;
     private boolean pause;
 
     public Fichier(boolean del) {
         super("ftp");
         this.pause = true;
-        this.pseudoSet = false;
         fichierCoups = new File("fichiers/coups.txt");
         fichierJoueurs = new File("fichiers/joueurs.txt");
         fichierGrille = new File("fichiers/grille.txt");
@@ -50,10 +48,6 @@ public class Fichier extends Thread {
             writeGrille(new Grille());
         }
         ftp.upload();
-    }
-
-    public void pseudoSet() {
-        this.pseudoSet = true;
     }
 
     public void setPause(boolean b) {
