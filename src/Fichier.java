@@ -81,8 +81,10 @@ public class Fichier extends Thread {
     }
 
     public Joueur[] updateJoueurs() {
+        ftp.download();
         Joueur[] joueurs = this.getJoueur();
         while (joueurs[0].getPseudo() == null || joueurs[1].getPseudo() == null) {
+            ftp.download();
             joueurs = this.getJoueur();
             try {
                 sleep(200);
