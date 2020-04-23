@@ -69,16 +69,21 @@ public class Fichier extends Thread {
     @Override
     public void run() {
         while (true) {
-            while (!this.pause) {
-                if (!pseudoSet || (Main.fenetre.getCoups() % 2) != this.getNumero()) {
-                    this.update();
-                }
+            while (!this.pause && (Main.fenetre.getCoups() % 2) != this.getNumero()) {
+                this.update();
             }
             try {
                 sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void updateJoueurs() {
+        Joueur[] joueurs = this.getJoueur();
+        while (joueurs[0].getPseudo() == null || joueurs[1].getPseudo() == null) {
+            this.update();
         }
     }
 
