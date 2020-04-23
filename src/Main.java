@@ -18,6 +18,7 @@ public class Main {
         fichier.start();
         fichier.setPause(false);
         fenetre = new Fenetre(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur(), fichier.getNumero());
+        fichier.setPause(false);
         fenetre.pack();
         fenetre.setVisible(true);
     }
