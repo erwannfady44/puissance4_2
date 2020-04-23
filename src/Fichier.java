@@ -62,7 +62,7 @@ public class Fichier extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (this.pause == true) {
+            if (this.pause == false) {
                 while (!this.pause && (Main.fenetre.getCoups() % 2) != this.getNumero()) {
                     System.out.println("update");
                     this.update();
