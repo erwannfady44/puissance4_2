@@ -18,6 +18,7 @@ public class Fichier extends Thread {
         fichierJoueurs = new File("fichiers/joueurs.txt");
         fichierGrille = new File("fichiers/grille.txt");
         Joueur[] joueurs = null;
+        this.pause = true;
         ftp = new Ftp();
         if (!del) {
             if (this.getCoups() == -1) {
