@@ -71,10 +71,8 @@ public class Fenetre extends JFrame {
     public void dessiner() {
 
         while (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
-            grille.removeAll();
-            fenetre.add(new JLabel("En attente d'un 2e joueur"));
-            Main.fichier.updateJoueurs();
-            fenetre.updateUI();
+            this.joueurs = Main.fichier.updateJoueurs();
+
             try {
                 sleep(200);
             } catch (InterruptedException e) {
