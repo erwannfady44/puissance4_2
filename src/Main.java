@@ -15,10 +15,9 @@ public class Main {
     public static void cretionFichier() {
         fichier = new Fichier(false);
 
-        fichier.start();
         fichier.setPause(false);
         fenetre = new Fenetre(fichier.getGrille(), fichier.getCoups(), fichier.getJoueur(), fichier.getNumero());
-        fichier.setPause(false);
+        fichier.start();
         fenetre.pack();
         fenetre.setVisible(true);
     }
