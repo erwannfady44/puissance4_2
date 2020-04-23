@@ -95,7 +95,7 @@ public class Fenetre extends JFrame {
                     //vérification de la victoire
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Tour de " + joueurs[coups % 2].getPseudo());
+                    JOptionPane.showMessageDialog(null, "Tour de " + joueurs[this.coups % 2].getPseudo());
                 }
                 gagne();
             };
