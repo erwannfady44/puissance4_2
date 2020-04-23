@@ -19,7 +19,7 @@ public class Fichier extends Thread {
         fichierCoups = new File("fichiers/coups.txt");
         fichierJoueurs = new File("fichiers/joueurs.txt");
         fichierGrille = new File("fichiers/grille.txt");
-        Joueur[] joueurs;
+        Joueur[] joueurs = null;
         ftp = new Ftp();
         if (!del) {
             if (this.getCoups() == -1) {
@@ -44,8 +44,6 @@ public class Fichier extends Thread {
                     e.printStackTrace();
                 }
 
-
-                joueurs = new Joueur[]{new Joueur(), new Joueur(Main.pseudo.getPseudo())};
                 writeJoueur(joueurs);
 
             }
@@ -80,8 +78,7 @@ public class Fichier extends Thread {
         }
     }
 
-    public Joueur[] updateJoueurs() {
-        Joueur[] joueurs = this.getJoueur();
+    public Joueur[] updateJoueurs() { Joueur[] joueurs = this.getJoueur();
         while (joueurs[0].getPseudo() == null || joueurs[1].getPseudo() == null) {
             joueurs = this.getJoueur();
             try {
