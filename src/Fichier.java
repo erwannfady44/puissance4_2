@@ -62,13 +62,14 @@ public class Fichier extends Thread {
     @Override
     public void run() {
         while (true) {
-            System.out.println("run");
-            while (!this.pause && (Main.fenetre.getCoups() % 2) != this.getNumero()) {
-                System.out.println("update");
-                this.update();
+            if (this.pause == true) {
+                while (!this.pause && (Main.fenetre.getCoups() % 2) != this.getNumero()) {
+                    System.out.println("update");
+                    this.update();
+                }
             }
             try {
-                sleep(1);
+                sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
