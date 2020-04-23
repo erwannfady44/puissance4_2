@@ -70,23 +70,30 @@ public class Fenetre extends JFrame {
     //fonction qui créer les boutons et dessine les pions
     public void dessiner() {
 
-        if (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
+        while (this.joueurs[0].getPseudo() == null || this.joueurs[1].getPseudo() == null) {
+            grille.removeAll();
             fenetre.add(new JLabel("En attente d'un 2e joueur"));
             Main.fichier.updateJoueurs();
+            fenetre.updateUI();
+            try {
+                sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
-        else {
-            //suppressions des boutons (pour les actualiser)
 
-            Main.fichier.setPause(true);
-            Main.fichier.pseudoSet();
-            grille.removeAll();
+        //suppressions des boutons (pour les actualiser)
 
-            //fonction réalisé au cliv sur un bouton
-            ActionListener ajoutPoint;
-            ajoutPoint = e -> {
-                if (this.coups % 2 == numeroJoueur) {
-                    //ajout du pions
+        Main.fichier.setPause(true);
+        Main.fichier.pseudoSet();
+        grille.removeAll();
+
+        //fonction réalisé au cliv sur un bouton
+        ActionListener ajoutPoint;
+        ajoutPoint = e -> {
+            if (this.coups % 2 == numeroJoueur) {
+                //ajout du pions
                     jouer(e, boutons);
 
                     //vérification de la victoire
@@ -120,7 +127,7 @@ public class Fenetre extends JFrame {
                 fenetre.updateUI();
             }
         }
-    }
+
 
     //fonction qui ajoute les pions
     private void jouer(ActionEvent e, JButton[][] boutons) {

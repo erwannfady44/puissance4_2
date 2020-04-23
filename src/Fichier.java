@@ -79,15 +79,7 @@ public class Fichier extends Thread {
     }
 
     public Joueur[] updateJoueurs() { Joueur[] joueurs = this.getJoueur();
-        while (joueurs[0].getPseudo() == null || joueurs[1].getPseudo() == null) {
-            joueurs = this.getJoueur();
-            try {
-                sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return joueurs;
+        return this.getJoueur();
     }
 
     public void writeGrille(Grille grille) {
